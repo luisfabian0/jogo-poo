@@ -20,7 +20,7 @@ public class Main {
 
         if(resp.equalsIgnoreCase("S")){
             Arena arena = new Arena();
-            arena.adicionarPersonagens();
+            arena.adicionarPersonagem();
         }else{
             return;
         }

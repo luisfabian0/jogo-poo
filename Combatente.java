@@ -3,8 +3,7 @@ public abstract class Combatente{
     private String nome;
     private int experiencia;
 
-    public Combatente(int pv, String nomeDeBatismo, int exp){
-        this.saude = pv;
+    public Combatente(String nomeDeBatismo, int exp){
         this.nome = nomeDeBatismo;
         this.experiencia = exp;
     }

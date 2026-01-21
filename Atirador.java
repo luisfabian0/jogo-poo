@@ -1,9 +1,11 @@
 public class Atirador extends Combatente{
+    private int pv;
     private int precisao;
     private int ataqueBase;
 
-    public Atirador(int pv, String nomeDeBatismo, int exp){
-        super(pv, nomeDeBatismo, exp);
+    public Atirador(String nomeDeBatismo, int exp){
+        super( nomeDeBatismo, exp);
+        this.pv = 100;
         this.precisao = 10;
         this.ataqueBase = 15;
     }

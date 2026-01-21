@@ -1,11 +1,13 @@
 public class Mago extends Combatente{
+    private int pv;
     private int mana;
     private int ataqueBase;
 
-    public Mago(int pv, String nomeDeBatismo, int exp, int mana){
-        super(pv, nomeDeBatismo, exp);
-        mana = 10;
-        ataqueBase = 15;    
+    public Mago(String nomeDeBatismo, int exp){
+        super(nomeDeBatismo, exp);
+        this.pv = 150;
+        this.mana = 10;
+        this.ataqueBase = 15;    
         
     }
 
