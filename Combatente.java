@@ -1,8 +1,8 @@
 import java.util.Random;
 public abstract class Combatente{
-    private int saude;
-    private String nome;
-    private int experiencia;
+    protected int saude;
+    protected String nome;
+    protected int experiencia;
     protected Random random = new Random();
 
     public Combatente(String nomeDeBatismo, int exp, int saudeInicial){
