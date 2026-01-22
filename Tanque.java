@@ -1,11 +1,9 @@
 public class Tanque extends Combatente{
-    private int pv; 
     private int vigor;
     private int ataqueBase;
 
     public Tanque(String nomeDeBatismo, int exp){
-        super(nomeDeBatismo, exp);
-        this.pv = 200;
+        super(nomeDeBatismo, exp, 200 + (exp * 5));
         this.vigor = 10;
         this.ataqueBase = 15;
     }
@@ -19,8 +17,20 @@ public class Tanque extends Combatente{
     }
 
     @Override
-    public void atacar(){
-            
+    public void atacar(Combatente alvo){
+        int danoBase = 15 + experiencia;
+        int danoTotal = this.ataqueBase + this.experiencia;
+        System.out.println(nome + " (Guardião) ataca " + alvo.getNome() + " com força de " + danoTotal);
+        alvo.receberDano(danoTotal);    
     }
     
+    @Override
+    public void receberDano(int dano) {
+        if (vigor >= 10 && random.nextInt(100) < 30) { 
+            System.out.println(nome + " bloqueou o ataque completamente! [Vigor -10]");
+            vigor -= 10;
+        } else {
+            super.receberDano(dano);
+        }
+    }
 }
