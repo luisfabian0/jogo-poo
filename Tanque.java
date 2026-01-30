@@ -18,7 +18,6 @@ public class Tanque extends Combatente{
 
     @Override
     public void atacar(Combatente alvo){
-        int danoBase = 15 + experiencia;
         int danoTotal = this.ataqueBase + this.experiencia;
         System.out.println(nome + " (Guardião) ataca " + alvo.getNome() + " com força de " + danoTotal);
         alvo.receberDano(danoTotal);    

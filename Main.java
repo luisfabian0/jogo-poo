@@ -5,7 +5,8 @@ public class Main {
     Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-    
+        Main jogo = new Main();
+        jogo.comecarJogo();
     }
 
     public void comecarJogo() {
