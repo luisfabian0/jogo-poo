@@ -114,6 +114,22 @@ public class Arena {
         return false;
     }
 
+    private void imprimirPlacar() {
+        System.out.println("\n*** SITUAÇÃO ATUAL ***");
+        System.out.println("--- Aliança da Luz ---");
+        for (Combatente c : combatentesAL) {
+            String status = c.estaVivo() ? c.getSaude() + " PV" : "MORTO";
+            System.out.println(c.getNome() + " [" + c.getClass().getSimpleName() + "]: " + status);
+        }
+    
+        System.out.println("--- Horda das Sombras ---");
+        for (Combatente c : combatentesHS) {
+            String status = c.estaVivo() ? c.getSaude() + " PV" : "MORTO";
+            System.out.println(c.getNome() + " [" + c.getClass().getSimpleName() + "]: " + status);
+        }
+        System.out.println("**********************\n");
+    }
+
     public void orquestrarJogo() {
 
         while (equipeViva(combatentesHS) && equipeViva(combatentesAL)) {
@@ -160,6 +176,7 @@ public class Arena {
                 atacante.atacar(alvo);
             }
         }
-
+        imprimirPlacar();
+        try { Thread.sleep(2000); } catch (InterruptedException e) { }
     }
 }
