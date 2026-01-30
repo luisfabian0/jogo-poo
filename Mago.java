@@ -24,7 +24,7 @@ public class Mago extends Combatente{
             System.out.println(nome + " lança um feitiço em " + alvo.getNome() + "!");
             alvo.receberDano(danoMagico);
         } else {
-            System.out.println(nome + " está sem mana! Ataque físico e meditação.");
+            System.out.println(nome + " está sem mana! Ataque físico e medita (+20 MP).");
             alvo.receberDano(this.ataqueBase);
             this.mana += 20; 
         }
