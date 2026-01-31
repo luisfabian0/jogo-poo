@@ -10,33 +10,41 @@ public class Main {
     }
 
     public void comecarJogo() {
-    System.out.println("Começar uma nova batalha? (S/N)");
-    String resp = sc.nextLine().trim();
+        System.out.println("Começar uma nova batalha? (S/N)");
+        String resp = sc.nextLine().trim();
 
-    while (!resp.equalsIgnoreCase("S") && !resp.equalsIgnoreCase("N")) {
-        System.out.println("Resposta inválida. Digite S ou N:");
-        resp = sc.nextLine().trim();
-    }
-
-    if (resp.equalsIgnoreCase("S")) {
-        Arena arena = new Arena();
-        
-        boolean adicionando = true;
-        while (adicionando) {
-            arena.adicionarPersonagem();
-            
-            System.out.println("Deseja adicionar outro combatente? (S/N)");
-            String continuar = sc.nextLine().trim();
-            if (continuar.equalsIgnoreCase("N")) {
-                adicionando = false;
-            }
+        while (!resp.equalsIgnoreCase("S") && !resp.equalsIgnoreCase("N")) {
+            System.out.println("Resposta inválida. Digite S ou N:");
+            resp = sc.nextLine().trim();
         }
-        
-        System.out.println("\n=== A BATALHA VAI COMEÇAR! ===");
-        arena.orquestrarJogo();
-        
-    } else {
-        System.out.println("Fim do programa.");
+
+        if (resp.equalsIgnoreCase("S")) {
+            Arena arena = new Arena();
+
+            boolean adicionando = true;
+            while (adicionando) {
+                arena.adicionarPersonagem();
+
+                System.out.println("Deseja adicionar outro combatente? (S/N)");
+                String continuar = sc.nextLine().trim();
+
+                while (!continuar.equalsIgnoreCase("S") &&
+                        !continuar.equalsIgnoreCase("N")){
+
+                    System.out.println("Resposta inválida. Digite S ou N" + continuar);
+                    continuar = sc.nextLine().trim();
+                }
+
+                if (continuar.equalsIgnoreCase("N")) {
+                    adicionando = false;
+                }
+            }
+
+            System.out.println("\n=== A BATALHA VAI COMEÇAR! ===");
+            arena.orquestrarJogo();
+
+        } else {
+            System.out.println("Fim do programa.");
+        }
     }
-}
 }
