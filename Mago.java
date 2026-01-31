@@ -8,23 +8,15 @@ public class Mago extends Combatente{
         this.ataqueBase = 15;
     }
 
-    public int getAtaqueBase() {
-        return ataqueBase;
-    }
-
-    public int getMana() {
-        return mana;
-    }
-
     @Override
     public void atacar(Combatente alvo) {
         if (mana >= 15) {
-            int danoMagico = (this.ataqueBase * 2) + this.experiencia;
+            int danoMagico = (this.ataqueBase * 2) + this.getExperiencia();
             mana -= 15;
-            System.out.println(nome + " lança um feitiço em " + alvo.getNome() + "!");
+            System.out.println(this.getNome() + " lança um feitiço em " + alvo.getNome() + "!");
             alvo.receberDano(danoMagico);
         } else {
-            System.out.println(nome + " está sem mana! Ataque físico e medita (+20 MP).");
+            System.out.println(this.getNome() + " está sem mana! Ataque físico e medita (+20 MP).");
             alvo.receberDano(this.ataqueBase);
             this.mana += 20; 
         }
