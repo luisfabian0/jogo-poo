@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -7,7 +6,7 @@ public class Arena {
 
     private ArrayList<Combatente> combatentesAL = new ArrayList<>();
     private ArrayList<Combatente> combatentesHS = new ArrayList<>();
-    
+
     Scanner sc = new Scanner(System.in);
 
     public void adicionarPersonagem() {
@@ -26,6 +25,16 @@ public class Arena {
 
             System.out.println("Equipe inválida. Digite A ou B:");
             equipeCombatente = sc.nextLine().trim();
+        }
+
+        if (equipeCombatente.equalsIgnoreCase("A") && combatentesAL.size() >= 3) {
+            System.out.println("A Aliança da Luz já possui 3 combatentes. Escolha outra equipe.");
+            return;
+        }
+
+        if (equipeCombatente.equalsIgnoreCase("B") && combatentesHS.size() >= 3) {
+            System.out.println("A Horda das Sombras já possui 3 combatentes. Escolha outra equipe.");
+            return;
         }
 
         // ===== NOME =====
@@ -62,26 +71,9 @@ public class Arena {
             tipoCombatente = sc.nextLine().trim();
         }
 
-        // ===== CRIAÇÃO DO PERSONAGEM =====
-        switch (tipoCombatente.toUpperCase()) {
-            case "T":
-                personagem = new Tanque(nomeCombatente, expCombatente);
-                break;
+        personagem = CombatenteFactory.criar(tipoCombatente, nomeCombatente, expCombatente);
 
-            case "M":
-                personagem = new Mago(nomeCombatente, expCombatente);
-                break;
-
-            case "A":
-                personagem = new Atirador(nomeCombatente, expCombatente);
-                break;
-
-            default:
-                personagem = null;
-        }
-        ;
-
-        if (equipeCombatente.equals('A')) {
+        if (equipeCombatente.equals("A")) {
             combatentesAL.add(personagem);
         } else {
             combatentesHS.add(personagem);
@@ -94,7 +86,7 @@ public class Arena {
         ArrayList<Combatente> vivos = new ArrayList<>();
 
         for (Combatente c : equipe) {
-            if (c.saude > 0)
+            if (c.estaVivo())
                 vivos.add(c);
         }
 
@@ -107,7 +99,7 @@ public class Arena {
 
     public boolean equipeViva(ArrayList<Combatente> equipe) {
         for (Combatente c : equipe) {
-            if (c.saude > 0) {
+            if (c.estaVivo()) {
                 return true;
             }
         }
@@ -116,13 +108,13 @@ public class Arena {
 
     private void imprimirPlacar() {
         System.out.println("\n*** SITUAÇÃO ATUAL ***");
-        System.out.println("--- Aliança da Luz ---");
+        System.out.println("--- Aliança da Luz --- \n");
         for (Combatente c : combatentesAL) {
             String status = c.estaVivo() ? c.getSaude() + " PV" : "MORTO";
-            System.out.println(c.getNome() + " [" + c.getClass().getSimpleName() + "]: " + status);
+            System.out.println(c.getNome() + " [" + c.getClass().getSimpleName() + "]: " + status );
         }
-    
-        System.out.println("--- Horda das Sombras ---");
+
+        System.out.println("--- Horda das Sombras --- \n");
         for (Combatente c : combatentesHS) {
             String status = c.estaVivo() ? c.getSaude() + " PV" : "MORTO";
             System.out.println(c.getNome() + " [" + c.getClass().getSimpleName() + "]: " + status);
@@ -139,7 +131,12 @@ public class Arena {
             orquestrarRodada();
         }
 
-        System.out.println("O jogo acabou");
+        if(equipeViva(combatentesAL)){
+            System.out.println("A ALIANÇA DA LUZ VENÇEU!");
+        }else{
+            System.out.println("A HORDA DAS SOMBRAS VENÇEU!");
+        }
+
         return;
     }
 
@@ -149,12 +146,12 @@ public class Arena {
 
         // adiciona apenas os vivos
         for (Combatente c : combatentesAL) {
-            if (c.saude > 0)
+            if (c.estaVivo())
                 ordem.add(c);
         }
 
         for (Combatente c : combatentesHS) {
-            if (c.saude > 0)
+            if (c.estaVivo())
                 ordem.add(c);
         }
 
@@ -165,7 +162,7 @@ public class Arena {
 
         for (Combatente atacante : ordem) {
 
-            if (atacante.saude <= 0)
+            if (!atacante.estaVivo())
                 continue; // pode ter morrido antes da vez
 
             ArrayList<Combatente> inimigos = combatentesAL.contains(atacante) ? combatentesHS : combatentesAL;
@@ -177,6 +174,9 @@ public class Arena {
             }
         }
         imprimirPlacar();
-        try { Thread.sleep(2000); } catch (InterruptedException e) { }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+        }
     }
 }
