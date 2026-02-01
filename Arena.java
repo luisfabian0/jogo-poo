@@ -13,13 +13,15 @@ public class Arena {
 
         Combatente personagem;
 
-        // ===== EQUIPE =====
+        // LER EQUIPE
         System.out.println(
                 "O combatente pertence a qual equipe?\n" +
                         "Digite A para Aliança da Luz\n" +
                         "Digite B para Horda das Sombras");
+
         String equipeCombatente = sc.nextLine().trim();
 
+        // WHILE PARA CASO ENTRADA DE DADO SER INVÁLIDA
         while (!equipeCombatente.equalsIgnoreCase("A") &&
                 !equipeCombatente.equalsIgnoreCase("B")) {
 
@@ -27,6 +29,7 @@ public class Arena {
             equipeCombatente = sc.nextLine().trim();
         }
 
+        // LIMITAÇÃO DE 3 COMBATENTES POR EQUIPE
         if (equipeCombatente.equalsIgnoreCase("A") && combatentesAL.size() >= 3) {
             System.out.println("A Aliança da Luz já possui 3 combatentes. Escolha outra equipe.");
             return;
@@ -37,17 +40,20 @@ public class Arena {
             return;
         }
 
-        // ===== NOME =====
+        // LER NOME
         System.out.println("Qual o nome do combatente?");
         String nomeCombatente = sc.nextLine().trim();
 
+        // WHILE PARA CASO ENTRADA DE DADO SER INVÁLIDA
         while (nomeCombatente.isEmpty()) {
             System.out.println("Nome não pode ser vazio. Digite novamente:");
             nomeCombatente = sc.nextLine().trim();
         }
 
-        // ===== EXPERIÊNCIA =====
-        System.out.println("Qual o nível de experiência do combatente?");
+        // LER EXPERIÊNCIA
+        System.out.println("Qual o nível de experiência do combatente? ( Recomendado que seja um número de 1 a 3)");
+        
+        // WHILE PARA CASO ENTRADA DE DADO SER INVÁLIDA
         while (!sc.hasNextInt()) {
             System.out.println("Digite um número válido:");
             sc.next();
@@ -55,14 +61,16 @@ public class Arena {
         int expCombatente = sc.nextInt();
         sc.nextLine(); // consome o ENTER
 
-        // ===== TIPO =====
+        // LER TIPO DE COMBATENTE
         System.out.println(
                 "Qual o tipo do combatente?\n" +
                         "Digite A para Atirador\n" +
                         "Digite T para Tanque\n" +
                         "Digite M para Mago");
+
         String tipoCombatente = sc.nextLine().trim();
 
+        // WHILE PARA CASO ENTRADA DE DADO SER INVÁLIDA
         while (!tipoCombatente.equalsIgnoreCase("A") &&
                 !tipoCombatente.equalsIgnoreCase("T") &&
                 !tipoCombatente.equalsIgnoreCase("M")) {
@@ -71,6 +79,7 @@ public class Arena {
             tipoCombatente = sc.nextLine().trim();
         }
 
+        // CRIAR PERSONAGEM COM A CLASSE CombatenteFactory
         personagem = CombatenteFactory.criar(tipoCombatente, nomeCombatente, expCombatente);
 
         if (equipeCombatente.equals("A")) {
